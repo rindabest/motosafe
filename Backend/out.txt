@@ -1,0 +1,17 @@
+﻿  Determining projects to restore...
+  All projects are up-to-date for restore.
+D:\Nam 3\Ky 2\QTDuAn\MotoClone\mechanic_setu\Backend\Controllers\MechanicController.cs(37,17): error CS0746: Invalid anonymous type member declarator. Anonymous type members must be declared with a member assignment, simple name or member access. [D:\Nam 3\Ky 2\QTDuAn\MotoClone\mechanic_setu\Backend\MotorSafe.Backend.csproj]
+D:\Nam 3\Ky 2\QTDuAn\MotoClone\mechanic_setu\Backend\Controllers\MechanicController.cs(37,19): error CS1061: 'Mechanic' does not contain a definition for 'LocationLat' and no accessible extension method 'LocationLat' accepting a first argument of type 'Mechanic' could be found (are you missing a using directive or an assembly reference?) [D:\Nam 3\Ky 2\QTDuAn\MotoClone\mechanic_setu\Backend\MotorSafe.Backend.csproj]
+D:\Nam 3\Ky 2\QTDuAn\MotoClone\mechanic_setu\Backend\Controllers\MechanicController.cs(38,17): error CS0746: Invalid anonymous type member declarator. Anonymous type members must be declared with a member assignment, simple name or member access. [D:\Nam 3\Ky 2\QTDuAn\MotoClone\mechanic_setu\Backend\MotorSafe.Backend.csproj]
+D:\Nam 3\Ky 2\QTDuAn\MotoClone\mechanic_setu\Backend\Controllers\MechanicController.cs(38,19): error CS1061: 'Mechanic' does not contain a definition for 'LocationLng' and no accessible extension method 'LocationLng' accepting a first argument of type 'Mechanic' could be found (are you missing a using directive or an assembly reference?) [D:\Nam 3\Ky 2\QTDuAn\MotoClone\mechanic_setu\Backend\MotorSafe.Backend.csproj]
+
+Build FAILED.
+
+D:\Nam 3\Ky 2\QTDuAn\MotoClone\mechanic_setu\Backend\Controllers\MechanicController.cs(37,17): error CS0746: Invalid anonymous type member declarator. Anonymous type members must be declared with a member assignment, simple name or member access. [D:\Nam 3\Ky 2\QTDuAn\MotoClone\mechanic_setu\Backend\MotorSafe.Backend.csproj]
+D:\Nam 3\Ky 2\QTDuAn\MotoClone\mechanic_setu\Backend\Controllers\MechanicController.cs(37,19): error CS1061: 'Mechanic' does not contain a definition for 'LocationLat' and no accessible extension method 'LocationLat' accepting a first argument of type 'Mechanic' could be found (are you missing a using directive or an assembly reference?) [D:\Nam 3\Ky 2\QTDuAn\MotoClone\mechanic_setu\Backend\MotorSafe.Backend.csproj]
+D:\Nam 3\Ky 2\QTDuAn\MotoClone\mechanic_setu\Backend\Controllers\MechanicController.cs(38,17): error CS0746: Invalid anonymous type member declarator. Anonymous type members must be declared with a member assignment, simple name or member access. [D:\Nam 3\Ky 2\QTDuAn\MotoClone\mechanic_setu\Backend\MotorSafe.Backend.csproj]
+D:\Nam 3\Ky 2\QTDuAn\MotoClone\mechanic_setu\Backend\Controllers\MechanicController.cs(38,19): error CS1061: 'Mechanic' does not contain a definition for 'LocationLng' and no accessible extension method 'LocationLng' accepting a first argument of type 'Mechanic' could be found (are you missing a using directive or an assembly reference?) [D:\Nam 3\Ky 2\QTDuAn\MotoClone\mechanic_setu\Backend\MotorSafe.Backend.csproj]
+    0 Warning(s)
+    4 Error(s)
+
+Time Elapsed 00:00:00.97
