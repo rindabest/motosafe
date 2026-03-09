@@ -6,7 +6,7 @@ import {
     User, Mail, Phone, Edit2, Save, X, LogOut,
     Calendar, MapPin,
     AlertTriangle, Clock, ChevronRight,
-    Wrench, Bike
+    Wrench, Bike, CreditCard
 } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import { toast } from 'react-hot-toast';
@@ -202,8 +202,8 @@ const ProfilePage = () => {
     }, [user]);
 
     const handleSave = useCallback(async () => {
-        if (!editedUser.first_name.trim() || !editedUser.email.trim()) {
-            toast.error('Vui lòng điền đầy đủ các trường');
+        if (!editedUser.full_name?.trim() || !editedUser.email?.trim()) {
+            toast.error('Vui lòng điền họ tên và email');
             return;
         }
 
@@ -265,30 +265,46 @@ const ProfilePage = () => {
 
                         <div className="flex-grow text-center md:text-left w-full">
                             {isEditing ? (
-                                <div className="grid md:grid-cols-2 gap-4 animate-in fade-in slide-in-from-bottom-2">
+                                <div className="grid md:grid-cols-2 gap-4 animate-in fade-in slide-in-from-bottom-2 text-left w-full">
                                     <EditableField
                                         label="Họ tên"
-                                        name="first_name"
-                                        value={editedUser.first_name}
+                                        name="full_name"
+                                        value={editedUser.full_name || ""}
                                         onChange={handleUserChange}
                                     />
                                     <EditableField
                                         label="Email"
                                         name="email"
-                                        value={editedUser.email}
+                                        value={editedUser.email || ""}
                                         onChange={handleUserChange}
                                         type="email"
                                     />
+                                    <EditableField
+                                        label="Số điện thoại"
+                                        name="mobile_number"
+                                        value={editedUser.mobile_number || ""}
+                                        onChange={handleUserChange}
+                                        type="tel"
+                                    />
+                                    <EditableField
+                                        label="CCCD"
+                                        name="cccd"
+                                        value={editedUser.cccd || ""}
+                                        onChange={handleUserChange}
+                                    />
                                 </div>
                             ) : (
-                                <div className="space-y-2">
-                                    <h2 className="text-3xl font-bold text-gray-900">{user.first_name} {user.last_name}</h2>
-                                    <div className="flex flex-col md:flex-row gap-4 text-gray-500 items-center md:items-start justify-center md:justify-start">
+                                <div className="space-y-2 w-full">
+                                    <h2 className="text-3xl font-bold text-gray-900">{user.full_name || `${user.first_name || ''} ${user.last_name || ''}`}</h2>
+                                    <div className="flex flex-col md:flex-row gap-4 text-gray-500 items-center md:items-start justify-center md:justify-start flex-wrap mt-2">
                                         <p className="flex items-center gap-2">
-                                            <Mail size={16} />{user.email}
+                                            <Mail size={16} />{user.email || "Chưa cập nhật email"}
                                         </p>
                                         <p className="flex items-center gap-2">
                                             <Phone size={16} />{user.mobile_number}
+                                        </p>
+                                        <p className="flex items-center gap-2">
+                                            <CreditCard size={16} />{user.cccd || "Chưa cập nhật CCCD"}
                                         </p>
                                     </div>
                                 </div>

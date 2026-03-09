@@ -21,63 +21,76 @@ const NewRegister = () => {
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [fieldErrors, setFieldErrors] = useState({});
     const [success, setSuccess] = useState(null);
 
     const updateField = (field, value) => {
         setForm((prev) => ({ ...prev, [field]: value }));
+        setFieldErrors((prev) => {
+            const newErrors = { ...prev };
+            delete newErrors[field];
+            return newErrors;
+        });
         setError(null);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(null);
+        setFieldErrors({});
         setSuccess(null);
 
-        // AC02: Không được để trống
+        const newFieldErrors = {};
         const { fullName, phone, email, cccd, password, confirmPassword } = form;
-        if (!fullName || !phone || !email || !cccd || !password || !confirmPassword) {
-            setError("Vui lòng điền đầy đủ thông tin");
-            return;
-        }
+
+        // AC02: Không được để trống
+        if (!fullName) newFieldErrors.fullName = "Vui lòng nhập họ tên";
+        if (!phone) newFieldErrors.phone = "Vui lòng nhập số điện thoại";
+        if (!email) newFieldErrors.email = "Vui lòng nhập email";
+        if (!cccd) newFieldErrors.cccd = "Vui lòng nhập CCCD";
+        if (!password) newFieldErrors.password = "Vui lòng nhập mật khẩu";
+        if (!confirmPassword) newFieldErrors.confirmPassword = "Vui lòng xác nhận mật khẩu";
+
+        // If some are empty, we stop here or continue to more specific checks? 
+        // Usually, it's better to show all specific errors.
 
         // AC03: Họ và tên
         const nameRegex = /^[\p{L}\s]+$/u;
-        if (!nameRegex.test(fullName)) {
-            setError("Họ và tên không hợp lệ");
-            return;
+        if (fullName && !nameRegex.test(fullName)) {
+            newFieldErrors.fullName = "Họ và tên không hợp lệ";
         }
 
         // AC04: Số điện thoại
         const phoneRegex = /^\d{10}$/;
-        if (!phoneRegex.test(phone)) {
-            setError("Số điện thoại không hợp lệ");
-            return;
+        if (phone && !phoneRegex.test(phone)) {
+            newFieldErrors.phone = "Số điện thoại không hợp lệ";
         }
 
         // AC05: Email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            setError("Email không hợp lệ");
-            return;
+        if (email && !emailRegex.test(email)) {
+            newFieldErrors.email = "Email không hợp lệ";
         }
 
         // AC06: CCCD
         const cccdRegex = /^\d{12}$/;
-        if (!cccdRegex.test(cccd)) {
-            setError("CCCD không hợp lệ");
-            return;
+        if (cccd && !cccdRegex.test(cccd)) {
+            newFieldErrors.cccd = "CCCD không hợp lệ";
         }
 
         // AC07: Mật khẩu
         const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/;
-        if (!passwordRegex.test(password)) {
-            setError("Mật khẩu không hợp lệ");
-            return;
+        if (password && !passwordRegex.test(password)) {
+            newFieldErrors.password = "Mật khẩu không hợp lệ";
         }
 
         // AC08: Xác nhận mật khẩu
-        if (password !== confirmPassword) {
-            setError("Mật khẩu xác nhận không đúng");
+        if (password && confirmPassword && password !== confirmPassword) {
+            newFieldErrors.confirmPassword = "Mật khẩu xác nhận không đúng";
+        }
+
+        if (Object.keys(newFieldErrors).length > 0) {
+            setFieldErrors(newFieldErrors);
             return;
         }
 
@@ -109,8 +122,15 @@ const NewRegister = () => {
         }
     };
 
-    const inputClass =
-        "w-full bg-[#1C1C1E] border border-zinc-800/80 rounded-xl pl-11 pr-4 py-3 text-white placeholder:text-zinc-600 focus:outline-none focus:ring-1 focus:ring-[#f97316]/50 focus:border-[#f97316]/50 transition-all text-sm";
+    const getInputClass = (fieldName) => {
+        const hasError = fieldErrors[fieldName];
+        return `w-full bg-[#1C1C1E] border ${hasError ? 'border-red-500/50' : 'border-zinc-800/80'} rounded-xl pl-11 pr-4 py-3 text-white placeholder:text-zinc-600 focus:outline-none focus:ring-1 ${hasError ? 'focus:ring-red-500/50 focus:border-red-500/50' : 'focus:ring-[#f97316]/50 focus:border-[#f97316]/50'} transition-all text-sm`;
+    };
+
+    const ErrorMessage = ({ message }) => {
+        if (!message) return null;
+        return <p className="text-red-500 text-[11px] mt-1 ml-1 font-medium">{message}</p>;
+    };
 
     return (
         <div className="min-h-screen flex flex-col bg-[#111111]">
@@ -184,9 +204,10 @@ const NewRegister = () => {
                                                 placeholder="Nhập họ tên"
                                                 value={form.fullName}
                                                 onChange={(e) => updateField("fullName", e.target.value)}
-                                                className={inputClass}
+                                                className={getInputClass("fullName")}
                                             />
                                         </div>
+                                        <ErrorMessage message={fieldErrors.fullName} />
                                     </div>
                                     <div>
                                         <label className="block text-xs font-medium text-zinc-300 ml-1 mb-1.5">Số Điện Thoại</label>
@@ -197,9 +218,10 @@ const NewRegister = () => {
                                                 placeholder="Nhập số điện thoại"
                                                 value={form.phone}
                                                 onChange={(e) => updateField("phone", e.target.value)}
-                                                className={inputClass}
+                                                className={getInputClass("phone")}
                                             />
                                         </div>
+                                        <ErrorMessage message={fieldErrors.phone} />
                                     </div>
                                 </div>
 
@@ -213,9 +235,10 @@ const NewRegister = () => {
                                                 placeholder="Nhập email"
                                                 value={form.email}
                                                 onChange={(e) => updateField("email", e.target.value)}
-                                                className={inputClass}
+                                                className={getInputClass("email")}
                                             />
                                         </div>
+                                        <ErrorMessage message={fieldErrors.email} />
                                     </div>
                                     <div>
                                         <label className="block text-xs font-medium text-zinc-300 ml-1 mb-1.5">CCCD</label>
@@ -226,9 +249,10 @@ const NewRegister = () => {
                                                 placeholder="Nhập CCCD"
                                                 value={form.cccd}
                                                 onChange={(e) => updateField("cccd", e.target.value)}
-                                                className={inputClass}
+                                                className={getInputClass("cccd")}
                                             />
                                         </div>
+                                        <ErrorMessage message={fieldErrors.cccd} />
                                     </div>
                                 </div>
 
@@ -241,7 +265,7 @@ const NewRegister = () => {
                                             placeholder="••••••••"
                                             value={form.password}
                                             onChange={(e) => updateField("password", e.target.value)}
-                                            className={`${inputClass} !pr-12`}
+                                            className={`${getInputClass("password")} !pr-12`}
                                         />
                                         <button
                                             type="button"
@@ -251,6 +275,7 @@ const NewRegister = () => {
                                             {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                                         </button>
                                     </div>
+                                    <ErrorMessage message={fieldErrors.password} />
                                 </div>
 
                                 <div>
@@ -262,7 +287,7 @@ const NewRegister = () => {
                                             placeholder="••••••••"
                                             value={form.confirmPassword}
                                             onChange={(e) => updateField("confirmPassword", e.target.value)}
-                                            className={`${inputClass} !pr-12`}
+                                            className={`${getInputClass("confirmPassword")} !pr-12`}
                                         />
                                         <button
                                             type="button"
@@ -272,6 +297,7 @@ const NewRegister = () => {
                                             {showConfirm ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                                         </button>
                                     </div>
+                                    <ErrorMessage message={fieldErrors.confirmPassword} />
                                 </div>
 
                                 <Button

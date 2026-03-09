@@ -21,7 +21,7 @@ export const handleApiError = (error) => {
     if (axios.isAxiosError(error)) {
         return error.response?.data?.message || error.message;
     }
-    return 'An unexpected error occurred';
+    return 'Đã xảy ra lỗi không mong muốn';
 };
 
 export default apiAuth;
