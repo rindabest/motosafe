@@ -6,7 +6,6 @@ import {
   X,
   User,
   LogOut,
-  Search,
   AlertTriangle,
   ChevronDown,
   Wrench,
@@ -74,16 +73,9 @@ export default function NavbarLanding() {
         {/* DESKTOP NAV */}
         <nav className="hidden md:flex items-center gap-1">
 
-          {/* Public Features */}
-          <NavLink to="/nearby-mechanics" className={getActiveClassName}>
-            <Wrench size={18} />
-            Tìm thợ sửa xe
-          </NavLink>
 
-          <NavLink to="/vehicle-rc" className={getActiveClassName}>
-            <Search size={18} />
-            Kiểm tra RC
-          </NavLink>
+
+
 
           {/* Emergency CTA */}
           <Link
@@ -187,21 +179,9 @@ export default function NavbarLanding() {
         <nav className="md:hidden bg-white border-t border-gray-200 shadow-lg absolute w-full left-0 z-40">
           <div className="flex flex-col p-4 gap-2">
 
-            <NavLink
-              to="/nearby-mechanics"
-              className={({ isActive }) => `flex items-center gap-3 px-4 py-3 rounded-lg ${isActive ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50'}`}
-              onClick={() => setMenuOpen(false)}
-            >
-              <Wrench size={20} /> Tìm thợ sửa xe
-            </NavLink>
 
-            <NavLink
-              to="/vehicle-rc"
-              className={({ isActive }) => `flex items-center gap-3 px-4 py-3 rounded-lg ${isActive ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50'}`}
-              onClick={() => setMenuOpen(false)}
-            >
-              <Search size={20} /> Kiểm tra RC
-            </NavLink>
+
+
 
             <Link
               to="/puncture-request"

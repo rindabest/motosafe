@@ -66,7 +66,7 @@ export default function PunctureRequestFormRedesigned() {
     // ✨ MODIFIED: Initialize state from localStorage
     const [formData, setFormData] = useState(() => {
         const defaultState = {
-            vehicleType: '',
+            vehicleType: 'bike',
             location: '',
             latitude: null,
             longitude: null,
@@ -75,7 +75,7 @@ export default function PunctureRequestFormRedesigned() {
             vehicleNumber: '',
             scheduledDate: '',
             scheduledTime: '',
-            fillMode: null, // 'rc' or 'manual'
+            fillMode: 'manual', // 'rc' or 'manual'
             rcData: null
         };
 
@@ -196,11 +196,9 @@ export default function PunctureRequestFormRedesigned() {
         }));
     };
 
-    const handleNext = () => step < 3 && setStep(step + 1);
+    const handleNext = () => step < 2 && setStep(step + 1);
     const handlePrev = () => {
-        if (step === 1 && formData.fillMode) {
-            setFormData(prev => ({ ...prev, fillMode: null, rcData: null, vehicleType: '', vehicleNumber: '' }));
-        } else if (step > 1) {
+        if (step > 1) {
             setStep(step - 1);
         }
     };
@@ -271,13 +269,8 @@ export default function PunctureRequestFormRedesigned() {
     };
 
     const canProceed = () => {
-        if (step === 1) {
-            if (formData.fillMode === 'manual') return !!formData.vehicleType;
-            if (formData.fillMode === 'rc') return !!formData.rcData;
-            return false;
-        }
-        if (step === 2) return formData.location.trim() !== '' && formData.location !== "Fetching address...";
-        if (step === 3) {
+        if (step === 1) return formData.location.trim() !== '' && formData.location !== "Fetching address...";
+        if (step === 2) {
             if (!formData.problem) return false;
             if (isScheduleService) return !!formData.scheduledDate && !!formData.scheduledTime;
             return true;
@@ -300,20 +293,13 @@ export default function PunctureRequestFormRedesigned() {
 
                 <main className="mt-4 bg-gray-200 rounded-2xl shadow-[3px_3px_6px_#BABECC,-3px_-3px_6px_#FFFFFF] p-6 md:p-8 min-h-[450px]">
                     <AnimatePresence mode="wait">
-                        {/* **FIX:** Pass state and handlers as props to the step components */}
                         {step === 1 && (
-                            <Step1_Vehicle
-                                formData={formData}
-                                setFormData={setFormData}
-                            />
-                        )}
-                        {step === 2 && (
                             <Step2_Location
                                 formData={formData}
                                 handleLocationChange={handleLocationChange}
                             />
                         )}
-                        {step === 3 && (
+                        {step === 2 && (
                             <Step3_Service
                                 formData={formData}
                                 setFormData={setFormData}
@@ -326,13 +312,13 @@ export default function PunctureRequestFormRedesigned() {
                 <footer className="flex justify-between items-center mt-8">
                     <button
                         onClick={handlePrev}
-                        disabled={step === 1 && !formData.fillMode}
+                        disabled={step === 1}
                         className="flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-gray-700 bg-gray-300 shadow-[3px_3px_6px_#BABECC,-3px_-3px_6px_#FFFFFF] hover:shadow-[inset_1px_1px_2px_#BABECC,inset_-1px_-1px_2px_#FFFFFF] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                         <ChevronLeft size={18} />
                         Quay lại
                     </button>
-                    {step < 3 ? (
+                    {step < 2 ? (
                         <button
                             onClick={handleNext}
                             disabled={!canProceed()}
@@ -651,9 +637,8 @@ const SelectableCard = ({ label, icon: Icon, emoji, isSelected, onClick }) => (
 
 const ProgressStepper = ({ currentStep }) => {
     const steps = [
-        { number: 1, title: 'Phương tiện', icon: Car },
-        { number: 2, title: 'Vị trí', icon: MapPin },
-        { number: 3, title: 'Dịch vụ', icon: Wrench },
+        { number: 1, title: 'Vị trí', icon: MapPin },
+        { number: 2, title: 'Dịch vụ', icon: Wrench },
     ];
 
     return (

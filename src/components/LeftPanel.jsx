@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, UserCircle, AlertTriangle, Fuel, Truck, Calendar } from 'lucide-react';
+import { ArrowRight, UserCircle } from 'lucide-react';
 import api from '../utils/api';
 
 export default function LeftPanel({ activeJob }) {
@@ -41,17 +41,7 @@ export default function LeftPanel({ activeJob }) {
         }
     };
 
-    const handleServiceSelect = (service) => {
-        // Navigate to service request page with the selected service
-        navigate(`/request?service=${service.toLowerCase().replace(' ', '-')}`);
-    };
 
-    const services = [
-        { name: "CỨU HỘ KHẨN CẤP", icon: AlertTriangle, color: "text-red-500", bgColor: "bg-red-50" },
-        { name: "ĐẶT LỊCH SỬA CHỮA", icon: Calendar, color: "text-blue-500", bgColor: "bg-blue-50" },
-        { name: "GIAO XĂNG TẬN NƠI", icon: Fuel, color: "text-green-500", bgColor: "bg-green-50" },
-        { name: "DỊCH VỤ KÉO XE", icon: Truck, color: "text-purple-500", bgColor: "bg-purple-50" }
-    ];
 
     return (
         <aside className="
@@ -117,45 +107,7 @@ export default function LeftPanel({ activeJob }) {
                 </div>
             </div>
 
-            {/* Quick Services Section */}
-            <div className="hidden md:flex w-full bg-gray-200 rounded-2xl flex-col p-4">
-                <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-bold text-xl text-gray-800">Dịch vụ nhanh</h3>
-                </div>
 
-                {/* Service Grid */}
-                <div className="grid grid-cols-2 gap-3 mt-2">
-                    {services.map((service) => (
-                        <button
-                            key={service.name}
-                            onClick={() => handleServiceSelect(service.name)}
-                            className={`p-3 bg-gray-200 rounded-xl border-2 border-gray-500/30 transition-all duration-200 ${service.bgColor}`}
-                        >
-                            <div className="flex flex-col items-center text-center gap-1">
-                                <service.icon className={`w-6 h-6 ${service.color}`} />
-                                <span className="text-xs font-medium text-gray-700">{service.name}</span>
-                            </div>
-                        </button>
-                    ))}
-                </div>
-            </div>
-
-            {/* Mobile Quick Actions - Only visible on mobile */}
-            <div className="md:hidden w-full ">
-                {/* Mobile Service Grid */}
-                <div className="grid grid-cols-4 gap-2 mt-2">
-                    {services.map((service) => (
-                        <button
-                            key={service.name}
-                            onClick={() => handleServiceSelect(service.name)}
-                            className={`p-2 bg-gray-200 rounded-xl shadow-[3px_3px_6px_#BABECC,-3px_-3px_6px_#FFFFFF] active:shadow-[inset_1px_1px_2px_#BABECC,inset_-1px_-1px_2px_#FFFFFF] transition`}
-                        >
-                            <service.icon className={`w-5 h-5 mx-auto ${service.color}`} />
-                            <span className="text-[10px] font-medium text-gray-700 block mt-1">{service.name.split(' ')[0]}</span>
-                        </button>
-                    ))}
-                </div>
-            </div>
         </aside>
     );
 }

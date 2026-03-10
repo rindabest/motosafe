@@ -35,12 +35,7 @@ const NotFound = () => {
             >
               <Home size={18} /> Trang chủ
             </Link>
-            <Link
-              to="/nearby-mechanics"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-semibold shadow-lg shadow-amber-400/30 transition"
-            >
-              <Wrench size={18} /> Tìm thợ sửa xe
-            </Link>
+
           </div>
         </div>
 

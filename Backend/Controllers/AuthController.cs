@@ -27,10 +27,10 @@ namespace MotorSafe.Backend.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
             if (await _context.Users.AnyAsync(u => u.Phone == request.Phone))
-                return BadRequest(new { message = "Số điện thoại đã được đăng ký." });
+                return BadRequest(new { message = "Phone number already exists." });
 
             if (!string.IsNullOrEmpty(request.Email) && await _context.Users.AnyAsync(u => u.Email == request.Email))
-                return BadRequest(new { message = "Email đã được đăng ký." });
+                return BadRequest(new { message = "Email already exists." });
 
             var user = new User
             {
@@ -44,7 +44,7 @@ namespace MotorSafe.Backend.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return Ok(new { message = "Đăng ký thành công" });
+            return Ok(new { message = "Registration successful" });
         }
 
         [HttpPost("login")]
@@ -52,7 +52,7 @@ namespace MotorSafe.Backend.Controllers
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Phone == request.AccountIdentifier || u.Email == request.AccountIdentifier);
             if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
-                return Unauthorized(new { message = "Số điện thoại/email hoặc mật khẩu không chính xác." });
+                return Unauthorized(new { message = "Invalid phone/email or password." });
 
             var token = GenerateJwtToken(user);
 

@@ -1,73 +1,79 @@
-# Mechanic Setu ✨
+# MotorSafe - Quick Motorcycle Rescue
 
-> ## Your instant repair solution. Ride smoother, not broken down. 
-> "Mechanic Setu" is an on-demand roadside assistance platform that connects vehicle owners with nearby, verified mechanics for issues like flat tires or minor mechanical faults. It functions as a real-time marketplace, offering convenience and speed to users while providing mechanics with a new customer acquisition channel.
->
-> ![Logo](https://mechanicsetu.netlify.app/ms.png)
-> 
-> **[Try Mechanic Setu Live!](https://mechanicsetu.netlify.app/)** | **[Try Setu Partner Mechanic!](https://setu-partner.netlify.app/)**
+MotorSafe là một ứng dụng hỗ trợ cứu hộ xe máy nhanh chóng, bao gồm cổng thông tin cho khách hàng và hệ thống quản lý yêu cầu cứu hộ.
 
----
-> [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-> [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
-> [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
----
-
-## 🚀 About the Startup
-**Mechanic Setu** is a startup founded and launched by a **19-year-old college student** currently pursuing a **BCA at Shreyarth University**, in partnership with **Dhruv Panchal**. 
-
-We are on a mission to bridge the gap between stranded vehicle owners and professional mechanics through a real-time digital marketplace.
-
-### 📍 Local Presence (Ahmedabad)
-We are currently live and serving users in the following areas of **Ahmedabad**:
-* Paldi | Chandranagar | Anjali | Vasna 
-* Jivraj Park | Nehrunagar | Manekbag | Ambavadi
+## 🚀 Tính năng chính
+- **Tìm kiếm thợ gần nhất**: Tự động xác định vị trí và tìm kiếm thợ sửa xe trong khu vực.
+- **Yêu cầu cứu hộ**: Gửi thông tin sự cố và yêu cầu thợ đến hỗ trợ.
+- **Theo dõi trạng thái**: Cập nhật trạng thái cứu hộ theo thời gian thực qua WebSockets.
+- **Quản lý thông tin**: Lưu trữ thông tin xe và lịch sử sửa chữa.
 
 ---
 
-## 🛠️ How It Works
-1. **Request Assistance:** Users select their vehicle issue (e.g., puncture) and share their location via the app.
-2. **Matching:** Our system identifies the nearest verified "Setu Partner" mechanics.
-3. **Real-time Tracking:** Once a mechanic accepts, users can track their arrival in real-time.
-4. **Instant Repair:** The mechanic arrives at the user's location to fix the issue on the spot.
+## 🛠️ Công nghệ sử dụng
 
-## 🌟 How It Helps
-* **For Vehicle Owners:** Eliminates the stress of searching for a garage while stranded. It provides transparent pricing and fast response times.
-* **For Mechanics:** Acts as a powerful customer acquisition channel, helping local shops grow their business digitally.
-* **Safety & Trust:** All partners are verified, ensuring a secure experience for the user.
+### Frontend
+- **Framework**: React 19 + Vite 6
+- **Styling**: Tailwind CSS 4, Framer Motion
+- **Maps**: Leaflet (OpenStreetMap)
+- **Real-time**: Socket.io-client
 
----
-
-## 💻 Tech Stack
-- **Frontend:** `React`, `Vite`
-- **Styling:** `TailwindCSS`
-- **Backend:** `Django` (REST Framework)
+### Backend
+- **Framework**: ASP.NET Core Web API
+- **Database**: MySQL (Entity Framework Core)
+- **Real-time**: SignalR / WebSockets
 
 ---
 
-## 🔌 Local Development (API routing)
-In development, this project uses Vite’s proxy to route requests to different backends:
-- **Auth only** (`/api/core/*`, `/api/users/*`) → `https://mechanic-setu-backend.vercel.app`
-- **Everything else** (`/api/*`) → `https://mechanic-setu-backend.vercel.app`
-- **WebSocket** (`/ws/*`) → `wss://mechanic-setu-int0.onrender.com`
+## 💻 Hướng dẫn cài đặt
 
-WebSocket hosts can be overridden with:
-- `VITE_WS_HTTP_BASE` (default `https://mechanic-setu-int0.onrender.com`)
-- `VITE_WS_BASE` (default `wss://mechanic-setu-int0.onrender.com`)
+### 1. Yêu cầu hệ thống
+- **Node.js**: Phiên bản 18+
+- **.NET SDK**: 8.0+
+- **MySQL Server**: (XAMPP hoặc MySQL Workbench)
 
-## 👥 Authors
-This project was brought to life by:
-* **Man Navlakha** (Founder) - [GitHub](https://github.com/man-navlakha) | [Portfolio](https://man-navlakha.netlify.app/)
-* **Dhruv Panchal** (Partner) - [GitHub](https://github.com/Dhruv9512) | [Portfolio](https://dhruv-portfolio-y8kt.onrender.com)
+### 2. Cài đặt Frontend
+Từ thư mục gốc của dự án:
+```bash
+# Cài đặt các package
+npm install
+
+# Chạy project ở chế độ development
+npm run dev
+```
+Truy cập tại: `http://localhost:5173`
+
+> **Lưu ý**: Nếu bạn chạy Backend locally, hãy kiểm tra file `vite.config.js` và cập nhật mục `proxy` trỏ về `http://localhost:5000` (hoặc cổng backend của bạn).
+
+### 3. Cài đặt Backend
+Di chuyển vào thư mục `Backend`:
+```bash
+cd Backend
+
+# Cập nhật thông tin kết nối database (MySQL)
+# Mở file appsettings.json và sửa DefaultConnection
+
+# Khởi tạo database (Yêu cầu dotnet-ef)
+dotnet ef database update
+
+# Chạy server
+dotnet run
+```
+Backend mặc định sẽ chạy tại: `https://localhost:5001` hoặc `http://localhost:5000`
 
 ---
 
-## 📈 Repository Activity
-> ![Activity](https://repobeats.axiom.co/api/embed/de4cf7816ee7077e7d887c620d88314ac5663b66.svg "Repobeats analytics image")
+## 📂 Cấu trúc thư mục
+- `/src`: Mã nguồn Frontend (React components, Pages, Utils).
+- `/Backend`: Mã nguồn ASP.NET Core Web API.
+- `/public`: Các tài nguyên tĩnh (Images, Icons).
 
 ---
 
-## 💬 Feedback
-#### We'd love to hear your feedback! If you have any suggestions or encounter issues, please reach out to us at `mechanicsetu@gmail.com`.
+## 🤝 Contributor
+- Dự án được phát triển bởi **rindabest**.
 
-> © 2025 [Dhruv & Man](https://mechanicsetu.netlify.app/) All Rights Reserved.
+---
+
+## 📄 Giấy phép
+Dự án này là mã nguồn mở.

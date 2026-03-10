@@ -98,7 +98,7 @@ function LandingHero({ error = '', loading, issues, onBookMechanic, onDetectLoca
 
         </h1>
         <p className="text-base sm:text-xl text-slate-600 mb-10 max-w-2xl mx-auto">
-          Tìm thợ sửa xe uy tín xung quanh để vá lốp, kích bình điện và cứu hộ khẩn cấp.
+          Ứng dụng cứu hộ khẩn cấp cho sự cố xe máy của bạn.
         </p>
 
         {error && (
@@ -117,19 +117,7 @@ function LandingHero({ error = '', loading, issues, onBookMechanic, onDetectLoca
             Đặt thợ sửa xe
           </button>
 
-          <button
-            type="button"
-            onClick={onDetectLocation}
-            disabled={loading}
-            className="w-full sm:w-auto flex items-center justify-center px-6 sm:px-8 py-3.5 sm:py-4 text-base sm:text-lg font-bold text-slate-700 bg-white border-2 border-slate-200 rounded-xl hover:bg-slate-50 transition-all disabled:opacity-70 disabled:cursor-not-allowed"
-          >
-            {loading ? (
-              <Loader className="w-5 h-5 mr-2 animate-spin" />
-            ) : (
-              <MapPin className="w-5 h-5 mr-2" />
-            )}
-            {loading ? 'Đang định vị...' : 'Tìm thợ gần đây'}
-          </button>
+
         </div>
 
         <div className="flex flex-wrap justify-center gap-3">
@@ -441,7 +429,7 @@ function LandingPage() {
         onBookMechanic={() => navigate('/login')}
         onDetectLocation={handleDetectLocation}
       />
-      <LandingNearbyMechanics />
+
       <LandingFAQ />
       <LocalServiceAreas />
 
