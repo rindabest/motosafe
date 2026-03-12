@@ -23,3 +23,13 @@ dist-ssr
 *.sln
 *.sw?
 src/components/MapplsAutosuggest.jsx
+# .NET build artifacts
+[Bb]in/
+[Oo]bj/
+
+# Other build artifacts
+build_errors.log
+build_output.txt
+build_output_utf8.txt
+msbuild.log
+out.txt

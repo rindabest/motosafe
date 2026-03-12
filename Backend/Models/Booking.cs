@@ -21,7 +21,7 @@ namespace MotorSafe.Backend.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal FinalPrice { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime? CompletedAt { get; set; }
     }
 }

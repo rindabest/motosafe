@@ -112,7 +112,7 @@ namespace MotorSafe.Backend.Controllers
             
             if (request.Status == "Completed")
             {
-                booking.CompletedAt = DateTime.UtcNow;
+                booking.CompletedAt = DateTime.Now;
             }
 
             await _context.SaveChangesAsync();
