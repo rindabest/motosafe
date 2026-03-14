@@ -27,10 +27,13 @@ namespace MotorSafe.Backend.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
             if (await _context.Users.AnyAsync(u => u.Phone == request.Phone))
-                return BadRequest(new { message = "Phone number already exists." });
+                return BadRequest(new { message = "Số điện thoại đã tồn tại." });
 
             if (!string.IsNullOrEmpty(request.Email) && await _context.Users.AnyAsync(u => u.Email == request.Email))
-                return BadRequest(new { message = "Email already exists." });
+                return BadRequest(new { message = "Email đã tồn tại." });
+
+            if (!string.IsNullOrEmpty(request.Cccd) && await _context.Users.AnyAsync(u => u.Cccd == request.Cccd))
+                return BadRequest(new { message = "CCCD đã tồn tại." });
 
             var user = new User
             {
