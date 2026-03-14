@@ -1,0 +1,42 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+src/components/MapplsAutosuggest.jsx
+# .NET build artifacts
+[Bb]in/
+[Oo]bj/
+
+# Other build artifacts
+build_errors.log
+build_output.txt
+build_output_utf8.txt
+msbuild.log
+out.txt
+
+# Bỏ qua các thư mục cấu hình của AI và Editor
+.agents/
+.claude/
+.commandcode/
+.continue/
+.cursor/
